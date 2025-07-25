@@ -1,0 +1,24 @@
+.glow-text {
+  text-shadow: 0 0 8px white, 0 0 16px rgba(255, 255, 255, 0.4);
+}
+
+.glow-dot {
+  box-shadow: 0 0 6px white, 0 0 12px rgba(255, 255, 255, 0.5);
+  transition: opacity 0.4s ease-in-out;
+}
+.scroll-arrow {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+@keyframes wiggle {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+.scroll-arrow {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+  animation: wiggle 1s infinite ease-in-out;
+}

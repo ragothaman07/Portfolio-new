@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'yang-bagus-font';
+  src: url('/fonts/yang-bagus-font/YangBagus-DYMX9.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.yang-bagus-font {
+  font-family: 'yang-bagus-font';
+}
+@font-face {
+  font-family: 'youth-touch-font';
+  src: url('/fonts/youth-touch-font/YouthTouchDemoRegular-4VwY.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.youth-touch-font {
+  font-family: 'youth-touch-font';
+}
+
+@font-face {
+  font-family: 'auralyess-font';
+  src: url('/fonts/auralyess-font/AuralyessFreeTrial-RpMrE.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.afonturalyess-font {
+  font-family: 'auralyess-font';
+}

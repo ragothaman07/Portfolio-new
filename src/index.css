@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@font-face {
+  font-family: 'heading-font';
+  src: url('/fonts/progress-font/ProgressPersonalUse-EaJdz.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ss-font';
+  src: url('/fonts/super-shake-font/SuperShake-e9PGn.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.heading-font {
+  font-family: 'heading-font', sans-serif;
+}
+
+.flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ss-font {
+    font-family: 'ss-font';
+  }
+  .hero{
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+
+  }
+  body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
