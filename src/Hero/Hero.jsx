@@ -7,36 +7,12 @@ import spinnerImage from "/src/assets/img/spin.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
-  const nameRef = useRef();
+  const nameWrapperRef = useRef();
   const spinnerRef = useRef();
   const innerImageRef = useRef();
 
   useEffect(() => {
-    // Create smooth-content element if it doesn't exist
-    if (!document.getElementById('smooth-content')) {
-      const div = document.createElement('div');
-      div.id = 'smooth-content';
-      document.body.appendChild(div);
-    }
-
-    // Existing animations
-    const element = nameRef.current;
-    requestAnimationFrame(() => {
-      const screenWidth = window.innerWidth;
-      const textWidth = element.getBoundingClientRect().width;
-
-      gsap.fromTo(
-        element,
-        { x: screenWidth },
-        {
-          x: -textWidth,
-          duration: 4,
-          ease: "linear",
-          repeat: -1,
-        }
-      );
-    });
-
+    // Spinner & Letter Animations
     gsap.to(spinnerRef.current, {
       rotation: 360,
       repeat: -1,
@@ -87,7 +63,7 @@ const Hero = () => {
       stagger: 0.15,
     });
 
-    // Enhanced scroll indicator fade out
+    // ScrollTrigger to fade scroll indicators
     gsap.to(".scroll-indicator", {
       opacity: 0,
       duration: 0.5,
@@ -98,28 +74,37 @@ const Hero = () => {
         end: "top+=100px top",
         scrub: true,
         onEnter: () => {
-          gsap.to(".scroll-indicator", { 
-            opacity: 0, 
-            duration: 0.3 
-          });
+          gsap.to(".scroll-indicator", { opacity: 0, duration: 0.3 });
         },
         onLeaveBack: () => {
-          gsap.to(".scroll-indicator", { 
-            opacity: 1, 
-            duration: 0.3 
-          });
-        }
+          gsap.to(".scroll-indicator", { opacity: 1, duration: 0.3 });
+        },
       },
     });
 
-    // Cleanup function
+    // Infinite horizontal text animation
+    const el = nameWrapperRef.current;
+    requestAnimationFrame(() => {
+      const totalWidth = el.scrollWidth;
+      gsap.fromTo(
+        el,
+        { x: window.innerWidth },
+        {
+          x: -totalWidth,
+          duration: 10,
+          ease: "linear",
+          repeat: -1,
+        }
+      );
+    });
+
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
   return (
-    <div 
+    <div
       className="fixed top-0 left-0 w-full h-full z-10"
       style={{
         backgroundColor: "#121212",
@@ -131,7 +116,7 @@ const Hero = () => {
         backgroundSize: "40px 40px, 20px 20px, 20px 20px",
       }}
     >
-      {/* Grid Background Layers */}
+      {/* Grid Background */}
       <div
         style={{
           position: "absolute",
@@ -160,16 +145,19 @@ const Hero = () => {
         }}
       />
 
-      {/* Moving Text - Now white */}
-      <div className="absolute top-1/2 transform -translate-y-1/2 whitespace-nowrap z-10 w-full flex justify-center">
-        <h1 ref={nameRef} className="ss-font text-[8rem] flex gap-4 text-white">
-          {"Ragothaman".split("").map((char, i) => (
-            <span key={i} className="inline-block letter">{char}</span>
-          ))}
-        </h1>
+      {/* Moving Name */}
+      <div className="absolute top-1/2 transform -translate-y-1/2 w-full overflow-hidden z-10">
+        <div className="w-fit whitespace-nowrap" ref={nameWrapperRef}>
+          <h1 className="ss-font text-[8rem] flex gap-4 text-white">
+            {"Ragothaman".split("").map((char, i) => (
+              <span key={i} className="inline-block letter">{char}</span>
+            ))}
+            <span className="inline-block w-[100vw]"></span>
+          </h1>
+        </div>
       </div>
 
-      {/* Curved Text */}
+      {/* Curved SVG Text */}
       <div className="curve-wrapper absolute top-[45%] left-1/2 transform -translate-x-1/2 z-0">
         <svg viewBox="0 0 800 200" width="800" height="200">
           <defs>
@@ -186,13 +174,24 @@ const Hero = () => {
         <img src={heroImage} alt="Hero" className="hero" />
       </div>
 
-      {/* Spinner */}
-      <div className="w-32 h-32 rounded-full absolute flex items-center justify-center z-10" style={{ bottom: "5%", right: "5%" }}>
-        <div ref={spinnerRef} className="absolute w-full h-full border-4 border-t-white border-r-white border-b-transparent border-l-transparent rounded-full"></div>
-        <img ref={innerImageRef} src={spinnerImage} alt="icon" className="w-20 h-20 z-10" />
+      {/* Spinner Icon */}
+      <div
+        className="w-32 h-32 rounded-full absolute flex items-center justify-center z-10"
+        style={{ bottom: "5%", right: "5%" }}
+      >
+        <div
+          ref={spinnerRef}
+          className="absolute w-full h-full border-4 border-t-white border-r-white border-b-transparent border-l-transparent rounded-full"
+        ></div>
+        <img
+          ref={innerImageRef}
+          src={spinnerImage}
+          alt="icon"
+          className="w-20 h-20 z-10"
+        />
       </div>
 
-      {/* Scroll Indicators - Will disappear on scroll */}
+      {/* Scroll Indicators */}
       <div className="scroll-indicator absolute bottom-10 left-8 z-20 flex flex-col items-start gap-2">
         <p className="text-white text-lg font-medium glow-text">Scroll Down</p>
         <div className="flex flex-col gap-1">
@@ -202,7 +201,11 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="scroll-indicator absolute bottom-4 z-20 flex flex-col items-center gap-2" style={{ left: "20%" }}>
+      {/* Side Arrows */}
+      <div
+        className="scroll-indicator absolute bottom-4 z-20 flex flex-col items-center gap-2"
+        style={{ left: "20%" }}
+      >
         {[...Array(4)].map((_, i) => (
           <svg key={i} className="scroll-arrow w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 16L6 10H18L12 16Z" />
@@ -210,7 +213,10 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="scroll-indicator absolute bottom-4 z-20 flex flex-col items-center gap-2" style={{ right: "20%" }}>
+      <div
+        className="scroll-indicator absolute bottom-4 z-20 flex flex-col items-center gap-2"
+        style={{ right: "20%" }}
+      >
         {[...Array(4)].map((_, i) => (
           <svg key={i} className="scroll-arrow w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 16L6 10H18L12 16Z" />
