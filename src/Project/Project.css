@@ -1,0 +1,36 @@
+/* Project.css */
+body {
+  background: #030412;
+  color: white;
+  overflow-x: hidden;
+}
+
+.text-sand {
+  color: #d6995c;
+}
+
+.bg-midnight {
+  background-color: #06091f;
+}
+
+.bg-navy {
+  background-color: #161a31;
+}
+@font-face {
+  font-family: 'karoly-font';
+  src: url('/fonts/karoly-font/KarolyDemoRegular-MApOe.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'dincy-blur-font';
+  src: url('/fonts/dincy-blur-font/DincyblurRegular-nArK4.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+.dincy-blur-font {
+  font-family: 'dincy-blur-font';
+}
+.karoly-font {
+  font-family: 'karoly-font';
+}

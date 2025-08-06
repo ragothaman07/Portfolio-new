@@ -1,0 +1,310 @@
+/* Contact.css - full file */
+
+/* Page layout */
+.page-wrapper {
+  background: #ffffff;
+  color: #000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.particles-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+}
+
+/* Header */
+.page-header {
+  padding-top: 48px;
+  padding-bottom: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 0;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 700px;
+  padding: 40px;
+  background: #fff;
+  border: 10px solid #000;
+  box-shadow: 20px 20px 0 #000;
+  transform: rotate(-2deg);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible;
+  margin: 24px auto 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers title, subtitle, and form */
+  text-align: center;  /* ensures text is centered */
+}
+
+/* subtle reduce on hover */
+.card:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 25px 25px 0 #000;
+}
+
+/* Remove the intense click shake */
+.card:active {
+  transform: scale(0.99);
+  transition: transform 0.1s ease;
+}
+
+/* Banner - inside card top right at 45deg, thicker */
+.banner {
+  position: absolute;
+  top: 12px;             /* space from top inside the card */
+  right: -85px;          /* adjusted so it stays inside the card visually */
+  background: #000;
+  color: #fff;
+  padding: 20px 0;       /* thicker height */
+  width: 350px;
+  text-align: center;
+  transform: rotate(45deg);
+  font-weight: 900;      /* thicker text */
+  font-size: 20px;
+  letter-spacing: 2px;
+  overflow: hidden;
+  transition: background 0.5s ease;
+  border-top: 5px solid #000;
+  border-bottom: 5px solid #000;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.banner-text {
+  display: inline-block;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.banner:hover {
+  background: red;
+}
+
+.banner:hover .banner-text:first-child {
+  opacity: 0;
+  transform: translate(-50%, -140%);
+}
+.banner:hover .banner-text:last-child {
+  opacity: 1;
+  transform: translate(-50%, -60%);
+}
+.banner-text:last-child {
+  opacity: 0;
+  transform: translate(-50%, 60%);
+}
+
+/* Title & subtitle */
+.card__title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #000;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border-bottom: 3px solid #000;
+  padding-bottom: 8px;
+  width: fit-content;
+  display: inline-block;
+}
+
+.card__subtitle {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 22px;
+  padding-bottom: 8px;
+  max-width: 90%;
+}
+
+/* Form styling - centered and constrained width */
+.card__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  align-items: center; /* centers the children horizontally */
+}
+
+/* rows container */
+.input-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Brutalist inputs (consistent) */
+.card__form input,
+.card__form textarea {
+  padding: 14px;
+  font-size: 16px;
+  border: 5px solid #000;
+  transition: all 0.25s ease;
+  background-color: #fff;
+  width: 100%;
+  max-width: 560px;
+  box-sizing: border-box;
+  font-family: inherit;
+  resize: vertical;
+  color: #000;
+}
+
+/* Focus behavior */
+.card__form input:focus,
+.card__form textarea:focus {
+  outline: none;
+  transform: scale(1.02);
+  background: #fff;
+}
+
+/* Button */
+.sign-up {
+  border: 5px solid #000;
+  background: #000;
+  color: #fff;
+  padding: 14px 26px;
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  max-width: 320px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sign-up:hover {
+  background: #fff;
+  color: #000;
+  transform: translateY(-6px);
+  box-shadow: 0 6px 0 #000;
+}
+
+.sign-up:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+/* Blinking caret hint (using focus-within so it appears when a child is focused) */
+.input-container {
+  position: relative;
+}
+
+/* caret is hidden by default (low distraction) */
+.input-container::after {
+  content: "|";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000;
+  animation: blink 0.7s step-end infinite;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* show caret when field inside is focused */
+.input-container:focus-within::after {
+  opacity: 1;
+}
+
+/* blink keyframes */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Simple shake keyframes (used by :active if needed) */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Alert spacing inside card if used */
+.card > .alert {
+  margin-bottom: 12px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 880px) {
+  .card {
+    padding: 32px;
+    border-width: 8px;
+    box-shadow: 16px 16px 0 #000;
+  }
+
+  .banner {
+    width: 260px;
+    right: -68px;
+    top: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 2.25rem;
+  }
+
+  .card__form input,
+  .card__form textarea {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .card {
+    width: calc(100% - 32px);
+    padding: 20px;
+    margin: 16px auto 40px;
+  }
+
+  .banner {
+    width: 220px;
+    right: -55px;
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .card__title {
+    font-size: 20px;
+  }
+
+  .card__subtitle {
+    font-size: 14px;
+  }
+}
+/* Banner inside the border */
+.inside-banner {
+  top: 50px;            /* push down inside */
+  right: -100px;         /* less overflow so it stays inside */
+  z-index: 1;
+}
+
+.card {
+  overflow: hidden;     /* make sure nothing leaks outside */
+}

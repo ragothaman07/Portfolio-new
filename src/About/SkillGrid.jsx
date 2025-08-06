@@ -5,45 +5,45 @@ const skillData = [
   {
     title: 'Java Full Stack',
     items: [
-      { icon: '/icons/java.svg', label: 'Java' },
-      { icon: '/icons/spring.svg', label: 'Spring' },
-      { icon: '/icons/react.svg', label: 'React' },
-      { icon: '/icons/mongodb.svg', label: 'MongoDB' },
-      { icon: '/icons/sql.svg', label: 'SQL' },
-      { icon: '/icons/api.svg', label: 'Spring Services' },
+      { icon: '/icons/Java.svg', label: 'Java' },
+      { icon: '/icons/Spring.svg', label: 'Spring' },
+      { icon: '/icons/React.svg', label: 'React' },
+      { icon: '/icons/MongoDB.svg', label: 'MongoDB' },
+      { icon: '/icons/MySQL.svg', label: 'SQL' },
+      { icon: '/icons/Spring.svg', label: 'Spring Services' },
     ],
   },
   {
-    title: 'Helping Libraries',
+    title: 'Helping Libraries and Languages',
     items: [
-      { icon: '/icons/tailwind.svg', label: 'Tailwind' },
-      { icon: '/icons/gsap.svg', label: 'GSAP' },
-      { icon: '/icons/r3f.svg', label: 'R3F' },
-      { icon: '/icons/node.svg', label: 'Node.js' },
-      { icon: '/icons/axios.svg', label: 'Axios' },
-      { icon: '/icons/zustand.svg', label: 'Zustand' },
+      { icon: '/icons/Tailwind CSS.svg', label: 'Tailwind' },
+      { icon: '/icons/gsap-greensock.svg', label: 'GSAP' },
+      { icon: '/icons/Three.js.svg', label: 'R3F', invert: true },
+      { icon: '/icons/Node.js.svg', label: 'Node.js' },
+      { icon: '/icons/c-1.svg', label: 'C#' },
+      { icon: '/icons/Python.svg', label: 'Python' },
     ],
   },
   {
     title: 'Tools',
     items: [
-      { icon: '/icons/gpt.svg', label: 'GPTs' },
-      { icon: '/icons/postman.svg', label: 'Postman' },
-      { icon: '/icons/canva.svg', label: 'Canva' },
-      { icon: '/icons/ms-office.svg', label: 'MS Office' },
-      { icon: '/icons/git.svg', label: 'Git' },
-      { icon: '/icons/vscode.svg', label: 'VS Code' },
+      { icon: '/icons/chatgpt-3.svg', label: 'GPTs', invert: true },
+      { icon: '/icons/postman-icon-svgrepo-com.svg', label: 'Postman' },
+      { icon: '/icons/canva-wordmark-2.svg', label: 'Canva' }, // Invert removed
+      { icon: '/icons/office-365-1.svg', label: 'MS Office' },
+      { icon: '/icons/GitHub.svg', label: 'Git', invert: true },
+      { icon: '/icons/Visual Studio Code (VS Code).svg', label: 'VS Code' },
     ],
   },
   {
     title: 'Personality',
     items: [
-      { icon: '/icons/observer.svg', label: 'Observer' },
-      { icon: '/icons/learner.svg', label: 'Learner' },
-      { icon: '/icons/talk.svg', label: 'Communicator' },
-      { icon: '/icons/optimistic.svg', label: 'Optimistic' },
-      { icon: '/icons/creative.svg', label: 'Creative' },
-      { icon: '/icons/multitask.svg', label: 'Multi-tasker' },
+      { icon: '/icons/observe-svgrepo-com.svg', label: 'Observer', invert: true },
+      { icon: '/icons/learn-svgrepo-com.svg', label: 'Learner', invert: true },
+      { icon: '/icons/talking-svgrepo-com.svg', label: 'Communicator', invert: true },
+      { icon: '/icons/proud-pose-svgrepo-com.svg', label: 'Optimistic', invert: true },
+      { icon: '/icons/idea-svgrepo-com.svg', label: 'Creative', invert: true },
+      { icon: '/icons/multi-talented-multitasking-svgrepo-com.svg', label: 'Multi-tasker', invert: true },
     ],
   },
 ];
@@ -87,13 +87,11 @@ const SkillGrid = () => {
   }, [currentIndex]);
 
   const current = skillData[currentIndex];
-
-  // 🔧 Clear refs before rendering
   labelRefs.current = [];
 
   return (
     <div
-      className="w-full h-full bg-gray-800 rounded-lg p-6 flex flex-col items-center justify-start"
+      className="w-full h-full p-6 flex flex-col items-center justify-start"
       onMouseEnter={stopRotation}
       onMouseLeave={startRotation}
     >
@@ -105,12 +103,20 @@ const SkillGrid = () => {
         {current.items.map((item, idx) => (
           <div
             key={idx}
-            className="flex flex-col items-center justify-center bg-gray-700 rounded-xl p-4 h-full min-h-[100px] transition hover:scale-105"
+            className="flex flex-col items-center justify-center rounded-xl p-4 h-full min-h-[100px] transition-transform hover:scale-110"
           >
             <img
               src={item.icon}
               alt={item.label}
-              className="w-14 h-14 mb-2 object-contain"
+              className={`mb-2 object-contain drop-shadow-lg transition-transform duration-300 ${
+                item.label === 'GPTs' || item.label === 'MS Office'
+                  ? 'w-24 h-24'
+                  : 'w-14 h-14'
+              } ${item.invert ? 'filter invert' : ''}`}
+              // onError={(e) => {
+              //   e.target.onerror = null;
+              //   e.target.src = '/icons/default.svg'; // fallback if needed
+              // }}
             />
             <span
               ref={(el) => (labelRefs.current[idx] = el)}

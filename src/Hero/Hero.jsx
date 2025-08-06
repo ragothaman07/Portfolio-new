@@ -63,7 +63,6 @@ const Hero = () => {
       stagger: 0.15,
     });
 
-    // ScrollTrigger to fade scroll indicators
     gsap.to(".scroll-indicator", {
       opacity: 0,
       duration: 0.5,
@@ -105,7 +104,7 @@ const Hero = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 w-full h-full z-10"
+      className="fixed top-0 left-0 w-full h-full z-10 overflow-visible"
       style={{
         backgroundColor: "#121212",
         backgroundImage: `
@@ -116,7 +115,7 @@ const Hero = () => {
         backgroundSize: "40px 40px, 20px 20px, 20px 20px",
       }}
     >
-      {/* Grid Background */}
+      {/* Grid Overlays */}
       <div
         style={{
           position: "absolute",
@@ -145,36 +144,29 @@ const Hero = () => {
         }}
       />
 
-      {/* Moving Name */}
-      <div className="absolute top-1/2 transform -translate-y-1/2 w-full overflow-hidden z-10">
-        <div className="w-fit whitespace-nowrap" ref={nameWrapperRef}>
-          <h1 className="ss-font text-[8rem] flex gap-4 text-white">
-            {"Ragothaman".split("").map((char, i) => (
-              <span key={i} className="inline-block letter">{char}</span>
-            ))}
-            <span className="inline-block w-[100vw]"></span>
-          </h1>
-        </div>
-      </div>
+     {/* Scrolling Name */}
+<div className="absolute top-1/2 transform -translate-y-1/2 w-full overflow-hidden z-10">
+  <div className="w-fit whitespace-nowrap" ref={nameWrapperRef}>
+    <h1 className="giamlass-font text-[12rem] flex gap-6 text-white py-2">
+      {"Ragothaman".split("").map((char, i) => (
+        <span key={i} className="inline-block letter">
+          {char}
+        </span>
+      ))}
+      <span className="inline-block w-[100vw]"></span>
+    </h1>
+  </div>
+</div>
 
-      {/* Curved SVG Text */}
-      <div className="curve-wrapper absolute top-[45%] left-1/2 transform -translate-x-1/2 z-0">
-        <svg viewBox="0 0 800 200" width="800" height="200">
-          <defs>
-            <path id="curve" d="M 0 150 Q 200 0 400 150 T 800 150" fill="transparent" />
-          </defs>
-          <text fontSize="60" fill="white">
-            <textPath href="#curve" startOffset="100%">Ragothaman</textPath>
-          </text>
-        </svg>
-      </div>
+
+     
 
       {/* Hero Image */}
       <div className="absolute bottom-0 w-full z-10">
         <img src={heroImage} alt="Hero" className="hero" />
       </div>
 
-      {/* Spinner Icon */}
+      {/* Spinner */}
       <div
         className="w-32 h-32 rounded-full absolute flex items-center justify-center z-10"
         style={{ bottom: "5%", right: "5%" }}
@@ -201,7 +193,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Side Arrows */}
+      {/* Left & Right Arrows */}
       <div
         className="scroll-indicator absolute bottom-4 z-20 flex flex-col items-center gap-2"
         style={{ left: "20%" }}

@@ -1,8 +1,0 @@
-/* HorizontalScroll.css */
-.horizontal-section::-webkit-scrollbar {
-  display: none;
-}
-.horizontal-section {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}

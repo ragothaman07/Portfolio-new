@@ -11,6 +11,102 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family:'auralyess-font';
+  src: url('/fonts/auralyess-font/AuralyessFreeTrial-RpMrE.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'vergilia-font';
+  src: url('/fonts/vergilia-font/Vergilia-mL6aa.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'meqanor-font';
+  src: url('/fonts/meqanor-font/MeqanorRegular-woOKZ.otf') format('truetype');
+}
+@font-face {
+  font-family: 'beking-font';
+  src: url('/fonts/beking-font/BekingBold-1Gqdg.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'giamlass-font';
+  src: url('/fonts/giamlass-font/GiamlassRegular-8OAwn.otf') format('truetype');
+}
+@font-face {
+  font-family: 'nugotha-font';
+  src: url('/fonts/nugotha-font/Nugotha-BLejl.ttf') format('truetype');
+   font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'plastic-font';
+  src: url('/fonts/plastic-font/PlasticLight-Mg5v.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'karoly-font';
+  src: url('/fonts/karoly-font/KarolyDemoRegular-MApOe.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'dincy-blur-font';
+  src: url('/fonts/dincy-blur-font/DincyblurRegular-nArK4.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'library-3-am-font';
+  src: url('/fonts/library-3-am-font/Library3amsoft-6zgq.otf') format('truetype');
+}
+@font-face {
+  font-family: 'soda-shake-font';
+  src: url('/fonts/soda-shake-font/SodaShake-9MGB5.ttf') format('truetype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+.soda-shake-font {
+  font-family: 'soda-shake-font', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.library-3-am-font {
+  font-family: 'library-3-am-font', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.dincy-blur-font {
+  font-family: 'dincy-blur-font', sans-serif;
+}
+.karoly-font {
+  font-family: 'karoly-font', sans-serif;
+}
+
+.plastic-font {
+  font-family: 'plastic-font', sans-serif;
+}
+.nugotha-font {
+  font-family: 'nugotha-font', sans-serif;
+}
+.giamlass-font {
+  font-family: 'giamlass-font', sans-serif;
+}
+.beking-font {
+  font-family: 'beking-font', sans-serif;
+}
+.meqanor-font {
+  font-family: 'meqanor-font', sans-serif;
+}
+.Vergilia-font {
+  font-family: 'vergilia-font', sans-serif;
+}
+.auralyess-font {
+  font-family: 'auralyess-font', sans-serif;
+}
 
 .heading-font {
   font-family: 'heading-font', sans-serif;
