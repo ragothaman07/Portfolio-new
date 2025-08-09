@@ -1,18 +1,26 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import heroImage from "/src/assets/img/hero-final.png";
 import spinnerImage from "/src/assets/img/spin.png";
+import crownGif2 from "/src/assets/img/Crown2.gif";
+import arrowGif from "/src/assets/img/arrow.gif";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+  const [showArrow, setShowArrow] = useState(true);
   const nameWrapperRef = useRef();
   const spinnerRef = useRef();
   const innerImageRef = useRef();
 
   useEffect(() => {
-    // Spinner & Letter Animations
+    // Hide arrow + text after 10 seconds
+    const timer = setTimeout(() => {
+      setShowArrow(false);
+    }, 10000);
+
+    // Spinner animations
     gsap.to(spinnerRef.current, {
       rotation: 360,
       repeat: -1,
@@ -27,6 +35,7 @@ const Hero = () => {
       duration: 2,
     });
 
+    // Letter pulse animation
     gsap.to(".letter", {
       scale: 1.4,
       yoyo: true,
@@ -81,26 +90,37 @@ const Hero = () => {
       },
     });
 
-    // Infinite horizontal text animation
+    // Seamless infinite marquee for "Ragothaman"
     const el = nameWrapperRef.current;
-    requestAnimationFrame(() => {
-      const totalWidth = el.scrollWidth;
-      gsap.fromTo(
-        el,
-        { x: window.innerWidth },
-        {
-          x: -totalWidth,
-          duration: 10,
-          ease: "linear",
-          repeat: -1,
-        }
-      );
-    });
+    if (el) {
+      el.innerHTML += el.innerHTML; // duplicate content for seamless loop
+      const totalWidth = el.scrollWidth / 2;
+
+      gsap.to(el, {
+        x: `-=${totalWidth}`,
+        duration: 10,
+        ease: "none",
+        repeat: -1,
+        modifiers: {
+          x: gsap.utils.unitize((x) => parseFloat(x) % totalWidth),
+        },
+      });
+    }
 
     return () => {
+      clearTimeout(timer);
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
+
+  const downloadResume = () => {
+    const link = document.createElement("a");
+    link.href = "/resume/resume.pdf"; // Adjust to your resume file path
+    link.download = "Ragothaman-resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div
@@ -115,7 +135,7 @@ const Hero = () => {
         backgroundSize: "40px 40px, 20px 20px, 20px 20px",
       }}
     >
-      {/* Grid Overlays */}
+      {/* Grid overlays */}
       <div
         style={{
           position: "absolute",
@@ -144,46 +164,74 @@ const Hero = () => {
         }}
       />
 
-     {/* Scrolling Name */}
-<div className="absolute top-1/2 transform -translate-y-1/2 w-full overflow-hidden z-10">
-  <div className="w-fit whitespace-nowrap" ref={nameWrapperRef}>
-    <h1 className="giamlass-font text-[12rem] flex gap-6 text-white py-2">
-      {"Ragothaman".split("").map((char, i) => (
-        <span key={i} className="inline-block letter">
-          {char}
-        </span>
-      ))}
-      <span className="inline-block w-[100vw]"></span>
-    </h1>
-  </div>
-</div>
+      {/* Scrolling Name */}
+      <div className="absolute top-1/2 transform -translate-y-1/2 w-full overflow-hidden z-10">
+        <div className="w-fit whitespace-nowrap" ref={nameWrapperRef}>
+          <h1 className="giamlass-font text-[30rem] inline-block text-white py-2">
+            {"Ragothaman   ".split("").map((char, i) => (
+              <span key={i} className="inline-block letter">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
+          </h1>
+        </div>
+      </div>
 
+      {/* Crown */}
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-20 pr-16">
+        <img src={crownGif2} alt="Crown" className="w-45 h-auto" />
+      </div>
 
-     
-
-      {/* Hero Image */}
+      {/* Hero image */}
       <div className="absolute bottom-0 w-full z-10">
         <img src={heroImage} alt="Hero" className="hero" />
       </div>
 
-      {/* Spinner */}
+      {/* Spinner + arrow + text container */}
       <div
-        className="w-32 h-32 rounded-full absolute flex items-center justify-center z-10"
-        style={{ bottom: "5%", right: "5%" }}
+        className="absolute z-20 flex items-center cursor-pointer"
+        onClick={downloadResume}
+        title="Download Resume"
+        style={{ gap: "1rem", bottom: "0.5rem", right: "3rem" }}
       >
+        {/* Arrow + text on the left */}
+        {showArrow && (
+          <div
+            className="flex flex-col items-center select-none text-white"
+            style={{ userSelect: "none", pointerEvents: "auto", width: "8rem" }}
+          >
+            <img
+              src={arrowGif}
+              alt="Arrow pointing right"
+              className="w-34 h-40 mb-1"
+              style={{ transform: "rotate(210deg) scaleX(-1)" }}
+            />
+            <p>click this this download resume</p>
+          </div>
+        )}
+
+        {/* Spinner circle on the right */}
         <div
-          ref={spinnerRef}
-          className="absolute w-full h-full border-4 border-t-white border-r-white border-b-transparent border-l-transparent rounded-full"
-        ></div>
-        <img
-          ref={innerImageRef}
-          src={spinnerImage}
-          alt="icon"
-          className="w-20 h-20 z-10"
-        />
+          className="w-32 h-32 rounded-full flex items-center justify-center relative bottom-5 right"
+          style={{ position: "relative" }}
+        >
+          {/* Spinner ring */}
+          <div
+            ref={spinnerRef}
+            className="absolute top-0 left-0 w-full h-full border-4 border-t-white border-r-white border-b-transparent border-l-transparent rounded-full"
+          ></div>
+
+          {/* Inner spinning image */}
+          <img
+            ref={innerImageRef}
+            src={spinnerImage}
+            alt="icon"
+            className="w-20 h-20 z-10"
+          />
+        </div>
       </div>
 
-      {/* Scroll Indicators */}
+      {/* Scroll indicators */}
       <div className="scroll-indicator absolute bottom-10 left-8 z-20 flex flex-col items-start gap-2">
         <p className="text-white text-lg font-medium glow-text">Scroll Down</p>
         <div className="flex flex-col gap-1">
@@ -193,24 +241,35 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Left & Right Arrows */}
+      {/* Left arrows */}
       <div
         className="scroll-indicator absolute bottom-4 z-20 flex flex-col items-center gap-2"
         style={{ left: "20%" }}
       >
         {[...Array(4)].map((_, i) => (
-          <svg key={i} className="scroll-arrow w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+          <svg
+            key={i}
+            className="scroll-arrow w-5 h-5 text-white"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
             <path d="M12 16L6 10H18L12 16Z" />
           </svg>
         ))}
       </div>
 
+      {/* Right arrows */}
       <div
         className="scroll-indicator absolute bottom-4 z-20 flex flex-col items-center gap-2"
         style={{ right: "20%" }}
       >
         {[...Array(4)].map((_, i) => (
-          <svg key={i} className="scroll-arrow w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+          <svg
+            key={i}
+            className="scroll-arrow w-5 h-5 text-white"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
             <path d="M12 16L6 10H18L12 16Z" />
           </svg>
         ))}

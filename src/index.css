@@ -1,16 +1,5 @@
 @import "tailwindcss";
-@font-face {
-  font-family: 'heading-font';
-  src: url('/fonts/progress-font/ProgressPersonalUse-EaJdz.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ss-font';
-  src: url('/fonts/super-shake-font/SuperShake-e9PGn.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+
 @font-face {
   font-family:'auralyess-font';
   src: url('/fonts/auralyess-font/AuralyessFreeTrial-RpMrE.ttf') format('truetype');
@@ -23,10 +12,7 @@
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-  font-family: 'meqanor-font';
-  src: url('/fonts/meqanor-font/MeqanorRegular-woOKZ.otf') format('truetype');
-}
+
 @font-face {
   font-family: 'beking-font';
   src: url('/fonts/beking-font/BekingBold-1Gqdg.ttf') format('truetype');
@@ -34,44 +20,35 @@
   font-style: normal;
 }
 @font-face {
-  font-family: 'giamlass-font';
-  src: url('/fonts/giamlass-font/GiamlassRegular-8OAwn.otf') format('truetype');
-}
-@font-face {
-  font-family: 'nugotha-font';
-  src: url('/fonts/nugotha-font/Nugotha-BLejl.ttf') format('truetype');
-   font-weight: bold;
+  font-family: 'giamlass-font (1)';
+  src: url('/fonts/giamlass-font (1)/GiamlassRegular-8OAwn.ttf') format('truetype');
+  font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'plastic-font';
   src: url('/fonts/plastic-font/PlasticLight-Mg5v.ttf') format('truetype');
 }
 @font-face {
-  font-family: 'karoly-font';
-  src: url('/fonts/karoly-font/KarolyDemoRegular-MApOe.ttf') format('truetype');
+  font-family: 'giamlass-font';
+  src: url('/fonts/giamlass-font/GiamlassRegular-8OAwn.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-  font-family: 'dincy-blur-font';
-  src: url('/fonts/dincy-blur-font/DincyblurRegular-nArK4.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
+
 @font-face {
   font-family: 'library-3-am-font';
   src: url('/fonts/library-3-am-font/Library3amsoft-6zgq.otf') format('truetype');
 }
-@font-face {
-  font-family: 'soda-shake-font';
-  src: url('/fonts/soda-shake-font/SodaShake-9MGB5.ttf') format('truetype'); 
+.giamlass-font {
+  font-family: 'giamlass-font', sans-serif;
   font-weight: normal;
   font-style: normal;
 }
-.soda-shake-font {
-  font-family: 'soda-shake-font', sans-serif;
-  font-weight: normal;
+.beking-font {
+  font-family: 'beking-font', sans-serif;
+  font-weight: bold;
   font-style: normal;
 }
 .library-3-am-font {
@@ -82,24 +59,9 @@
 .dincy-blur-font {
   font-family: 'dincy-blur-font', sans-serif;
 }
-.karoly-font {
-  font-family: 'karoly-font', sans-serif;
-}
 
 .plastic-font {
   font-family: 'plastic-font', sans-serif;
-}
-.nugotha-font {
-  font-family: 'nugotha-font', sans-serif;
-}
-.giamlass-font {
-  font-family: 'giamlass-font', sans-serif;
-}
-.beking-font {
-  font-family: 'beking-font', sans-serif;
-}
-.meqanor-font {
-  font-family: 'meqanor-font', sans-serif;
 }
 .Vergilia-font {
   font-family: 'vergilia-font', sans-serif;
@@ -117,9 +79,7 @@
   justify-content: center;
   align-items: center;
 }
-.ss-font {
-    font-family: 'ss-font';
-  }
+
   .hero{
     width: 60%;
     height: auto;

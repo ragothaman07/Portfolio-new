@@ -29,7 +29,7 @@ const skillData = [
     items: [
       { icon: '/icons/chatgpt-3.svg', label: 'GPTs', invert: true },
       { icon: '/icons/postman-icon-svgrepo-com.svg', label: 'Postman' },
-      { icon: '/icons/canva-wordmark-2.svg', label: 'Canva' }, // Invert removed
+      { icon: '/icons/canva-wordmark-2.svg', label: 'Canva' },
       { icon: '/icons/office-365-1.svg', label: 'MS Office' },
       { icon: '/icons/GitHub.svg', label: 'Git', invert: true },
       { icon: '/icons/Visual Studio Code (VS Code).svg', label: 'VS Code' },
@@ -52,6 +52,8 @@ const SkillGrid = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
   const labelRefs = useRef([]);
+  const iconRefs = useRef([]);
+  const titleRef = useRef(null);
 
   const startRotation = () => {
     intervalRef.current = setInterval(() => {
@@ -67,56 +69,107 @@ const SkillGrid = () => {
   }, []);
 
   useEffect(() => {
+    // Kill any existing animations
     gsap.killTweensOf(labelRefs.current);
+    gsap.killTweensOf(iconRefs.current);
+    gsap.killTweensOf(titleRef.current);
+
+    // Title animation sequence (right to center to left)
+    const titleAnimation = gsap.timeline();
+    titleAnimation
+      .fromTo(
+        titleRef.current,
+        { x: 200, opacity: 0 },
+        { 
+          x: 0, 
+          opacity: 1, 
+          duration: 0.5, 
+          ease: 'power2.out'
+        }
+      )
+      .to(
+        titleRef.current,
+        {
+          x: -200,
+          opacity: 0,
+          duration: 0.5,
+          ease: 'power2.in',
+          delay: 2 // Pause in center for 2 seconds
+        }
+      );
+
+    // Icon pop-in animation
+    gsap.fromTo(
+      iconRefs.current,
+      { 
+        scale: 0,
+        opacity: 0
+      },
+      { 
+        scale: 1,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'back.out(1.7)'
+      }
+    );
+
+    // Label pop-in animation
     labelRefs.current.forEach((el, i) => {
       if (el) {
         gsap.fromTo(
           el,
-          { textShadow: '0 0 0px #0ff' },
+          { 
+            y: 10,
+            opacity: 0
+          },
           {
-            textShadow: '0 0 12px #0ff',
-            duration: 1.2,
-            repeat: 1,
-            yoyo: true,
-            ease: 'sine.inOut',
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
             delay: i * 0.05,
+            ease: 'back.out(1.5)'
           }
         );
       }
     });
+
   }, [currentIndex]);
 
   const current = skillData[currentIndex];
   labelRefs.current = [];
+  iconRefs.current = [];
 
   return (
     <div
-      className="w-full h-full p-6 flex flex-col items-center justify-start"
+      className="w-full h-full flex flex-col items-center justify-start"
       onMouseEnter={stopRotation}
       onMouseLeave={startRotation}
     >
-      <h2 className="text-3xl font-bold mb-4 text-center text-white">
-        {current.title}
-      </h2>
+      <div className="overflow-hidden h-12 mb-4 w-full">
+        <h2 
+          ref={titleRef}
+          className="text-3xl font-bold text-center text-white w-full"
+        >
+          {current.title}
+        </h2>
+      </div>
 
       <div className="grid grid-cols-3 gap-4 w-full h-full">
         {current.items.map((item, idx) => (
           <div
             key={idx}
-            className="flex flex-col items-center justify-center rounded-xl p-4 h-full min-h-[100px] transition-transform hover:scale-110"
+            className="flex flex-col items-center justify-center p-2"
           >
             <img
+              ref={el => iconRefs.current[idx] = el}
               src={item.icon}
               alt={item.label}
-              className={`mb-2 object-contain drop-shadow-lg transition-transform duration-300 ${
+              className={`mb-2 object-contain ${
                 item.label === 'GPTs' || item.label === 'MS Office'
                   ? 'w-24 h-24'
                   : 'w-14 h-14'
               } ${item.invert ? 'filter invert' : ''}`}
-              // onError={(e) => {
-              //   e.target.onerror = null;
-              //   e.target.src = '/icons/default.svg'; // fallback if needed
-              // }}
             />
             <span
               ref={(el) => (labelRefs.current[idx] = el)}
